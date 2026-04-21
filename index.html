@@ -1,0 +1,719 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Hospital EKA</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body {
+    font-family:'Segoe UI';
+    margin:0;
+
+    /* TU IMAGEN DE FONDO */
+    background: url('img/hospital.jpg.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+    /* ESTO ES LO NUEVO PARA BAJAR EL FOOTER */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 30px;
+    background:white;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+nav a {
+    margin:0 10px;
+    cursor:pointer;
+    font-weight:bold;
+    color:black;
+    text-decoration:none;
+}
+.social {position:fixed; right:15px; top:40%; display:flex; flex-direction:column; gap:12px; z-index:999;}
+.social a {background:#4a90e2; color:white; padding:12px; border-radius:50%; font-size:18px;}
+
+    section {
+    display:none;
+    padding:20px;
+    max-width:1100px;
+    margin:auto;
+    flex: 1;
+}
+.active {display:block;}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+.hero img {width:400px; border-radius:10px;}
+
+.carousel {display:flex; overflow-x:auto; gap:20px; padding:10px; scroll-behavior:smooth;}
+
+.card {min-width:260px; height:420px; background:white; border-radius:12px; padding:15px; box-shadow:0 5px 10px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between; text-align:center;}
+.card img {width:100%; height:250px; object-fit:cover; border-radius:10px;}
+
+button {background:#4a90e2; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;}
+
+.bloque {background:white; padding:20px; margin:15px 0; border-radius:12px; box-shadow:0 5px 10px rgba(0,0,0,0.1);}
+.map {width:100%; max-width:700px; display:block; margin:auto; border-radius:10px;}
+
+footer {background:#4a90e2; color:white; text-align:center; padding:10px; margin-top:30px;}
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 280px 40px 40px 40px;
+    }
+/* caja blanca transparente */
+.hero-texto {
+    background: rgba(255, 255, 255, 0.75);
+    padding: 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    max-width: 350px;
+    text-align: center;
+}
+
+.hero-texto h2 {
+    margin: 0 0 10px 0;
+    color: #023e8a;
+}
+
+.hero-texto p {
+    margin-bottom: 15px;
+    color: #333;
+}
+    body.white-bg {
+    background: white !important;
+}
+    /* SERVICIOS EN CUADRÍCULA */
+#serv {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    overflow: hidden !important;
+}
+
+/* OCULTAR IMÁGENES SOLO EN SERVICIOS */
+#serv .card img {
+    display: block;
+}
+
+/* ANIMACIÓN AL BAJAR */
+#serv .card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+#serv .card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+    /* ocultar footer solo en inicio */
+.hide-footer footer {
+    display: none;
+}
+    /* MÉDICOS EN CUADRÍCULA (igual que servicios) */
+#med {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    overflow: hidden !important;
+}
+
+/* IMÁGENES DE MÉDICOS */
+#med .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* ANIMACIÓN */
+#med .card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+#med .card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+    /* centrar títulos de secciones */
+section h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+    .bloque h2 {
+    text-align: center;
+}
+    .card p { text-align: justify; }
+    /* ESPECIALIDADES EN CUADRÍCULA */
+#esp {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    overflow: hidden !important;
+}
+
+/* IMÁGENES */
+#esp .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* ANIMACIÓN */
+#esp .card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+#esp .card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+    .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 35px;   /* tamaño pequeño */
+    height: 35px;
+    object-fit: contain;
+}
+    /* CARDS NOSOTROS (MISION, VISION, VALORES) */
+.nosotros-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.nos-card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 230px;
+}
+
+.nos-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.nos-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* CARRUSEL HISTORIA */
+.historia-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+
+.historia-card {
+    min-width: 300px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.historia-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.historia-card p {
+    padding: 10px;
+    text-align: justify;
+}
+
+/* MAPA */
+.mapa iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 12px;
+    border: none;
+}
+    .nos-card p {
+    text-align: justify;
+}
+    /* MODAL DOCTORES */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    position: relative;
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+   .form-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.campo{
+    display:flex;
+    flex-direction:column;
+}
+
+.campo input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    box-sizing:border-box;
+}
+
+.campo label{
+    font-size:12px;
+    margin-bottom:5px;
+    color:#444;
+}
+
+.campo input:focus{
+    border-color:#4a90e2;
+    box-shadow:0 0 5px rgba(74,144,226,0.4);
+}
+.full{
+    grid-column: 1 / -1;   /* ocupa toda la fila correctamente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full button{
+        width: 200px;
+    text-align: center;
+}
+</style>
+</head><body><header>
+<div class="logo">
+    <img src="https://previews.123rf.com/images/martialred/martialred1806/martialred180600032/105297924-blue-hospital-sign-with-the-letter-h-icon-flat-vector-icon-for-apps-and-websites.jpg">
+    <h2>Hospital EKA</h2>
+</div>
+<nav>
+<a onclick="mostrar('inicio')">Inicio        | </a>
+<a onclick="mostrar('nosotros')">Nosotros        |</a>
+<a onclick="mostrar('especialidades')">Especialidades        |</a>
+<a onclick="mostrar('servicios')">Servicios        |</a>
+<a onclick="mostrar('medicos')">Médicos        |</a>
+<a onclick="mostrar('expediente')">Expediente        |</a>
+<a onclick="mostrar('citas')">Citas</a>
+</nav>
+</header>
+
+<div class="social">
+<a href="https://wa.me/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+<a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+<a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
+
+<section id="inicio" class="active">
+<div class="hero">
+<div class="hero-texto">
+    <h2>Salud para tu familia</h2>
+    <p>Atención médica profesional</p>
+    <button onclick="mostrar('citas')">Agendar cita</button>
+</div>
+</div>
+</section>
+
+<section id="nosotros">
+
+<!-- 🔵 CARDS ARRIBA -->
+<div class="nosotros-cards">
+
+<div class="nos-card">
+<img src="https://hospitalramoncarrillo.com/wp-content/uploads/2024/12/WEB-Mision-color.png">
+<h3>Misión</h3>
+<p>Brindar atención médica integral con calidad, tecnología y trato humano, priorizando siempre el bienestar y la seguridad de nuestros pacientes.</p>
+</div>
+
+<div class="nos-card">
+<img src="https://hospitalramoncarrillo.com/wp-content/uploads/2024/12/WEB-Vision-color.png">
+<h3>Visión</h3>
+<p>Ser reconocido como uno de los modelos hospitalarios de mayor calidad asistencial y humanitaria en América.</p>
+</div>
+
+<div class="nos-card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrheZs-PQjCO6E39AXIk7m04dG3qUuVaQ_Iw&s">
+<h3>Valores</h3>
+<p>Compromiso, ética, respeto, empatía y profesionalismo son la base de cada atención que brindamos a nuestros pacientes.</p>
+</div>
+
+</div>
+
+<!-- 🟣 HISTORIA -->
+<div class="bloque">
+<h2>Nuestra Historia</h2>
+
+<div class="historia-carousel">
+
+<div class="historia-card">
+<img src="https://www.hespanol.com/fotografias/Historia%201er%20Hospital%20Nino%20Perdido%20700x400.jpg">
+<p>Hospital EKA nació en 1840 con el compromiso de ofrecer atención médica de calidad para todas las familias.</p>
+</div>
+
+<div class="historia-card">
+<img src="https://medicaltsss.com.mx/wp-content/uploads/2021/01/medicaltsss_equipamiento-hospitalario-1.jpg">
+<p>Con el paso del tiempo incorporamos tecnología moderna y ampliamos nuestros servicios especializados.</p>
+</div>
+
+<div class="historia-card">
+<img src="https://media.istockphoto.com/id/1755140492/es/foto/enfermera-esperando-a-que-un-paciente-llene-un-formulario-mientras-se-registra-en-el-hospital.jpg?s=612x612&w=0&k=20&c=rgJTnplgvMY4vPlyfM01rAWYXZO-QyR8OOHxQ59-HMs=">
+<p>Hoy seguimos creciendo, manteniendo nuestro enfoque humano y profesional en cada paciente.</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- 🟢 MAPA -->
+<div class="bloque mapa">
+<h2>Nuestra Ubicación</h2>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.787265341817!2d106.97353079999999!3d-6.159239899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698a4506ec40fb%3A0x9c0f1982c755fb58!2sEka%20Hospital%20Bekasi!5e0!3m2!1ses-419!2smx!4v1776803527392!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación del Hospital EKA"></iframe>
+
+</div>
+
+</section>
+    <section id="especialidades">
+<h2>Especialidades</h2>
+<div class="carousel" id="esp">
+<div class="card"><img src="https://www.rajuhospital.com/vedioGallery/1746624568_Best%20Heart_Cardiology.jpeg"><h3>Cardiología</h3><p>Diagnóstico y tratamiento de enfermedades del corazón y sistema cardiovascular.</p></div>
+<div class="card"><img src="https://thumbs.dreamstime.com/b/concepto-de-pediatry-peque%C3%B1o-paciente-del-beb%C3%A9-con-el-pediatra-doctor-121129931.jpg"><h3>Pediatría</h3><p>Atención médica integral para niños, enfocada en su crecimiento y desarrollo saludable.</p></div>
+<div class="card"><img src="https://bluenethospitals.com/storage/assets/en/new-posts/ObGyn_Ginecologia_BlueNetHOSPITALS_LosCabos.webp"><h3>Ginecología</h3><p>Cuidado de la salud femenina en todas las etapas de la vida, con enfoque preventivo.</p></div>
+<div class="card"><img src="https://hospitalblue.com/wp-content/uploads/2025/05/hospital-blue-tijuana-medical-tower-especialidades-traumatologia-ortopedia-hero.jpg"><h3>Traumatología</h3><p>Diagnóstico y tratamiento de lesiones óseas, articulares y musculares.</p></div>
+<div class="card"><img src="https://dermconsnw.com/wp-content/uploads/2022/04/medical-dermatology.jpg"><h3>Dermatología</h3><p>Tratamiento de enfermedades de la piel, cabello y uñas, así como cuidado estético.</p></div>
+<div class="card"><img src="https://vishwarajhospital.com/wp-content/uploads/2023/07/17_Neurology.jpg"><h3>Neurología</h3><p>Evaluación y tratamiento de trastornos del sistema nervioso central y periférico.</p></div>
+<div class="card"><img src="https://www.neovisioneyecenters.com/wp-content/uploads/2020/10/neovision-october-2020-1-jpg.webp"><h3>Oftalmología</h3><p>Cuidado de la salud visual, diagnóstico y tratamiento de enfermedades oculares.</p></div>
+<div class="card"><img src="https://www.harbourcancer.co.nz/images/603936/what-is-oncology.jpg"><h3>Oncología</h3><p>Diagnóstico y tratamiento integral del cáncer con atención especializada.</p></div>
+<div class="card"><img src="https://tampabayendocrine.com/wp-content/uploads/2026/01/What-are-the-diagnostic-tests-used-in-endocrinology-Tampa-Bay-Endocrine.png"><h3>Endocrinología</h3><p>Atención de trastornos hormonales como diabetes y enfermedades metabólicas.</p></div>
+<div class="card"><img src="https://brainhealthusa.com/wp-content/uploads/2022/07/Psychiatrist.png"><h3>Psiquiatría</h3><p>Diagnóstico y tratamiento de trastornos mentales, emocionales y conductuales.</p></div>
+<div class="card"><img src="https://images.medicinenet.com/images/article/main_image/urologist-1.jpg?output-quality=75"><h3>Urología</h3><p>Atención del sistema urinario y salud reproductiva masculina.</p></div>
+<div class="card"><img src="https://www.gastroconsa.com/wp-content/uploads/2024/02/What-is-Gastroenterology.jpg"><h3>Gastroenterología</h3><p>Diagnóstico y tratamiento de enfermedades del sistema digestivo.</p></div>
+</div>
+</section>
+<section id="servicios">
+<h2>Servicios</h2>
+<div class="carousel" id="serv"><div class="card"><img src="https://centroredsalud.com.mx/wp-content/uploads/2024/01/check-up-portada-blog-de-salud-redSalud-1024x641.webp">
+<h3>Check Up</h3>
+<p>Ofrecemos suficientes elementos diagnósticos para el conocimiento de su estado de salud.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div>
+<div class="card"><img src="https://www.medicasurmexico.com/images/services/urgencias.jpg"><h3>Urgencias</h3><p>Atención médica al paciente críticamente enfermo, de manera segura, oportuna y eficaz.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button>
+</div><div class="card"><img src="https://doctorshospital.mx/wp-content/uploads/2020/02/laboratorio_clinico_banner_920.jpg"><h3>Laboratorio</h3><p>Trabaja ininterrumpidamente las 24 horas, los 365 días del año.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://mentalhrenacer.com.co/web/wp-content/uploads/2021/05/CONSULTA-EXTERNA.jpg"><h3>Consulta Externa Gral.</h3><p>Médicos Generales con amplia experiencia en medicina de primer contacto.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://images.unsplash.com/photo-1579154204601-01588f351e67"><h3>Servicio de Imagenología</h3><p>Conformado por varias ramas de servicio diagnóstico.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://images.unsplash.com/photo-1550831107-1553da8c8464"><h3>Clínica de Obesidad y Sobrepeso</h3><p>Tratamiento personalizado, nuestro seguimiento es de por vida.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://www.hospitallazarzuela.es/imagenes/noticias/noticia20210921152308.jpg"><h3>Terapia Hiperbárica</h3><p>Terapia de oxigenación hiperbárica para mejorar la calidad de vida.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://images.unsplash.com/photo-1581595219315-a187dd40c322"><h3>Neurofisiología</h3><p>Encaminado a valorar el sistema nervioso central, periférico y muscular.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://hospitalangeles.com/assets/img/imgservicios/banco-de-sangre.webp"><h3>Banco de Sangre del Hospital</h3><p>Procedimientos especiales, pruebas de compatibilidad, suministro de sangre.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://www.clinicanace.cl/wp-content/uploads/2025/11/a-female-reproductive-organ-and-an-instrument-for-2024-12-05-19-50-29-utc-683x1024.jpg"><h3>Ginecología y Obs.</h3><p>Atendemos las necesidades de las mujeres en todas sus etapas de la vida.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289"><h3>Clínica del Dolor del Hospital</h3><p>Anestesiología, manejo del dolor, cuidados paliativos.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div><div class="card"><img src="https://www.etkho.com/wp-content/uploads/2022/05/claves_correcto_diseno_quirofano_pic03_20220518_etkho_hospital_engineering.jpg"><h3>Quirófanos</h3><p>Atención médico - quirúrgica integral con calidad y calidez humana.</p><button onclick="alert(this.previousElementSibling.innerText)">Conocer más</button></div>
+</div>
+</section>
+<section id="medicos">
+<h2>Médicos</h2>
+<div class="carousel" id="med">
+<div class="card"><img src="https://static.vecteezy.com/system/resources/thumbnails/026/375/249/small/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg"><h3>Dr. Ian Suarez</h3><p>Cardiólogo con más de 10 años de experiencia en diagnóstico y tratamiento de enfermedades cardiovasculares.</p> <button onclick="verMas('Ian')">Ver más</button> </div>
+<div class="card"><img src="https://img.freepik.com/fotos-premium/doctor-sobre-fondo-gris_688097-543.jpg"><h3>Dra. Esmeralda Hernandez</h3><p>Pediatra especialista en el cuidado integral de niños, con enfoque en desarrollo y prevención de enfermedades.</p> <button onclick="verMas('Esmeralda')">Ver más</button> </div>
+<div class="card"><img src="https://www.shutterstock.com/image-photo/portrait-smiling-doctor-on-light-600nw-2473925187.jpg"><h3>Dr. Christian Ruiz</h3><p>Traumatólogo con amplia experiencia en lesiones óseas, rehabilitación y atención a pacientes deportivos.</p> <button onclick="verMas('Christian')">Ver más</button> </div>
+<div class="card"><img src="https://t3.ftcdn.net/jpg/05/04/25/70/360_F_504257032_jBtwqNdvdMN9Xm6aDT0hcvtxDXPZErrn.jpg"><h3>Dra. Carolina Gomez</h3><p>inecóloga especializada en salud femenina, control prenatal y atención en todas las etapas de la mujer.</p> <button onclick="verMas('Carolina')">Ver más</button> </div>
+<div class="card"><img src="https://thumbs.dreamstime.com/b/doctor-de-alto-rango-leyendo-un-libro-aislado-sobre-fondo-gris-una-pared-185921825.jpg"><h3>Dr. Isaac Hernandez</h3><p>Neurólogo enfocado en el diagnóstico y tratamiento de trastornos del sistema nervioso central y periférico.</p> <button onclick="verMas('Isaac')">Ver más</button> </div>
+<div class="card"><img src="https://img.freepik.com/fotos-premium/doctor-sobre-fondo-gris_688097-495.jpg"><h3>Dra. Paola Díaz</h3><p>Dermatóloga experta en enfermedades de la piel, tratamientos estéticos y cuidado dermatológico integral.</p> <button onclick="verMas('Paola')">Ver más</button> </div>
+</div>
+</section>
+  <section id="expediente">
+<h2>Expediente Clínico</h2>
+
+<form id="formExpediente" method="POST" class="form-grid">
+
+<div class="campo">
+<input type="text" name="nombre" placeholder="Nombre" required>
+</div>
+
+<div class="campo">
+<input type="text" name="apellido" placeholder="Apellido" required>
+</div>
+
+<div class="campo">
+<input type="number" name="edad" placeholder="Edad" required>
+</div>
+
+<div class="campo">
+<input type="date" name="fecha_nacimiento" required>
+  <label>Fecha de nacimiento</label>
+</div>
+
+<div class="campo">
+<input type="text" name="direccion" placeholder="Dirección" required>
+</div>
+
+<div class="campo">
+<input type="number" step="0.1" name="peso" placeholder="Peso (kg)" required>
+</div>
+
+<div class="campo">
+<input type="number" step="0.01" name="estatura" placeholder="Estatura (m)" required>
+</div>
+
+<div class="campo">
+<input type="text" name="alergias" placeholder="Alergias">
+</div>
+
+<div class="campo full">
+<button type="submit">Guardar expediente</button>
+</div>
+
+</form>
+
+<p id="msgExpediente"></p>
+</section>
+   <section id="citas">
+<h2>Agendar Cita</h2>
+
+<form id="formCita" class="form-grid">
+
+<div class="campo">
+<input type="text" name="nombre" placeholder="Nombre" required>
+</div>
+
+<div class="campo">
+<input type="text" name="apellido" placeholder="Apellido" required>
+</div>
+
+<div class="campo">
+<input type="number" name="edad" placeholder="Edad" required>
+</div>
+
+<div class="campo">
+<label>Especialidad</label>
+<select name="especialidad" required>
+    <option value="">Selecciona una especialidad</option>
+    <option>Cardiología</option>
+    <option>Pediatría</option>
+    <option>Ginecología</option>
+    <option>Traumatología</option>
+    <option>Dermatología</option>
+    <option>Neurología</option>
+    <option>Oftalmología</option>
+    <option>Oncología</option>
+    <option>Endocrinología</option>
+    <option>Psiquiatría</option>
+    <option>Urología</option>
+    <option>Gastroenterología</option>
+</select>
+</div>
+
+<div class="campo full">
+<input type="text" name="motivo" placeholder="Motivo de consulta" required>
+</div>
+
+<div class="campo">
+<label>Fecha</label>
+<input type="date" name="fecha" required>
+</div>
+
+<div class="campo">
+<label>Hora</label>
+<input type="time" name="hora" required>
+</div>
+
+<div class="campo full">
+<button type="submit">Agendar cita</button>
+</div>
+
+</form>
+
+<p id="msgCita"></p>
+</section>
+    <footer>
+<p>© 2026 Hospital EKA</p>
+<p>Todos los derechos reservados</p>
+</footer>
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">×</span>
+        <div id="modal-text"></div>
+    </div>
+</div>
+   
+<script>
+function mostrar(sec){
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sec).classList.add('active');
+
+    const body = document.body;
+
+    if(sec === "inicio"){
+        body.classList.remove("white-bg");
+        body.classList.add("hide-footer");   // 👈 oculta footer
+    } else {
+        body.classList.add("white-bg");
+        body.classList.remove("hide-footer"); // 👈 lo muestra otra vez
+    }
+}
+function loop(id){
+const c=document.getElementById(id);
+let x=0;
+setInterval(()=>{
+x+=270;
+if(x>=c.scrollWidth/2){x=0;}
+c.scrollTo({left:x,behavior:'smooth'});
+},2500);
+}
+
+// loop('esp');
+// loop('serv');
+// loop('med');
+    // ANIMACIÓN SCROLL SOLO SERVICIOS
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('#serv .card, #med .card, #esp .card').forEach(card => {
+    observer.observe(card);
+});
+    mostrar('inicio'); // 👈 esto arregla lo del footer
+   function verMas(nombre){
+    const datos = {
+        "Ian": "Dr. Ian Suárez - Cardiólogo\nEgresado de la UNAM\nEspecialidad en cardiología clínica en el IPN\n10+ años de experiencia en hospitales de alta especialidad.",
+        "Esmeralda": "Dra. Esmeralda Hernández - Pediatra\nEgresada de la UAM\nSubespecialidad en neonatología\nExperiencia en atención infantil integral.",
+        "Christian": "Dr. Christian Ruiz - Traumatólogo\nEgresado del IPN\nEspecialidad en ortopedia avanzada\nExperiencia en lesiones deportivas.",
+        "Carolina": "Dra. Carolina Gomez - Ginecóloga\nEgresada de la UNAM\nEspecialidad en salud reproductiva\nExperiencia en control prenatal.",
+        "Isaac": "Dr. Isaac Hernandez - Neurólogo\nEgresado del IPN\nEspecialidad en neurología clínica\nInvestigación en trastornos del sistema nervioso.",
+        "Paola": "Dra. Paola Díaz - Dermatóloga\nEgresada de la UAM\nEspecialidad en dermatología estética\nExperiencia en tratamientos de piel avanzados."
+    };
+
+    document.getElementById("modal-text").innerText = datos[nombre];
+    document.getElementById("modal").style.display = "block";
+}
+
+function cerrarModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event){
+    let modal = document.getElementById("modal");
+    if(event.target == modal){
+        modal.style.display = "none";
+    }
+}
+    document.getElementById("formExpediente").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        nombre: this.nombre.value,
+        apellido: this.apellido.value,
+        edad: this.edad.value,
+        fecha_nacimiento: this.fecha_nacimiento.value,
+        direccion: this.direccion.value,
+        peso: this.peso.value,
+        estatura: this.estatura.value,
+        alergias: this.alergias.value
+    };
+
+   fetch("https://script.google.com/macros/s/AKfycby_O4_e4Jczb2q-49fZTrJB_ej2_XiCfzSA7gySUo0Bl2i4nMVPH_Ir9ju0DufhlpFz/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+})
+    .then(res => res.text())
+    .then(res => {
+        document.getElementById("msgExpediente").innerText =
+            "✔ Expediente guardado";
+
+        this.reset();
+    })
+    .catch(err => {
+        document.getElementById("msgExpediente").innerText =
+            "❌ Error al guardar";
+    });
+});
+    document.getElementById("formCita").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        nombre: this.nombre.value,
+        apellido: this.apellido.value,
+        edad: this.edad.value,
+        especialidad: this.especialidad.value,
+        motivo: this.motivo.value,
+        fecha: this.fecha.value,
+        hora: this.hora.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycby_O4_e4Jczb2q-49fZTrJB_ej2_XiCfzSA7gySUo0Bl2i4nMVPH_Ir9ju0DufhlpFz/exec", {
+        method: "POST",
+    body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+.then(res => {
+    document.getElementById("msgCita").innerText =
+        "✔ Cita agendada con éxito";
+
+    this.reset();
+})
+    .catch(err => {
+        document.getElementById("msgCita").innerText =
+            "❌ Error al agendar cita";
+    });
+});
+</script>
+   
+</body>
+</html>
